@@ -23,7 +23,9 @@ export const initializeDestinosViajesState = function(){
 //ACCIONES
 export enum DestinosViajesActionTypes {
   NUEVO_DESTINO = '[Destinos Viajes] Nuevo',
-  ELEGIDO_FAVORITO = '[Destinos Viajes] Favorito'
+  ELEGIDO_FAVORITO = '[Destinos Viajes] Favorito',
+  VOTE_UP = '[Destinos Viajes] Vote up',
+  VOTE_DOWN = '[Destinos Viajes] Vote down'
 }
 
 export class NuevoDestinoAction implements Action {
@@ -36,12 +38,23 @@ export class ElegidoFavoritoAction implements Action {
   constructor(public destino: DestinoViaje) {}
 }
 
-export type DestinosViajesActions = NuevoDestinoAction | ElegidoFavoritoAction;
+export class VoteUpAction implements Action {
+  type = DestinosViajesActionTypes.VOTE_UP;
+  constructor(public destino: DestinoViaje) {}
+}
+
+export class VoteDownAction implements Action {
+  type = DestinosViajesActionTypes.VOTE_DOWN;
+  constructor(public destino: DestinoViaje) {}
+}
+
+export type DestinosViajesActions = NuevoDestinoAction | ElegidoFavoritoAction
+ | VoteUpAction | VoteDownAction;
 
 //REDUCERS
 export function reducerDestinosViajes(
-	state:DestinosViajesState,
-	action:DestinosViajesActions
+	state: DestinosViajesState,
+	action: DestinosViajesActions
 ) : DestinosViajesState {
 	switch (action.type) {
 		case DestinosViajesActionTypes.NUEVO_DESTINO: {
@@ -52,13 +65,25 @@ export function reducerDestinosViajes(
 		}
 		case DestinosViajesActionTypes.ELEGIDO_FAVORITO: {
 		    state.items.forEach(x => x.setSelected(false));
-		    let fav:DestinoViaje = (action as ElegidoFavoritoAction).destino;
+		    const fav:DestinoViaje = (action as ElegidoFavoritoAction).destino;
 		    fav.setSelected(true);
 		    return {
 		    	...state,
 		  		favorito: fav
 		    };
-		}
+    }
+    
+    case DestinosViajesActionTypes.VOTE_UP: {
+      const d:DestinoViaje = (action as VoteUpAction).destino;
+      d.voteUp();
+      return {...state};
+    }
+
+    case DestinosViajesActionTypes.VOTE_DOWN: {
+      const d:DestinoViaje = (action as VoteDownAction).destino;
+      d.voteDown();
+      return {...state};
+    }
 	}
 	return state;
 }

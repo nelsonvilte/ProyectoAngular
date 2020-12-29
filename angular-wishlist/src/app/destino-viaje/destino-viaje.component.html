@@ -12,11 +12,15 @@
                             <i *ngSwitchCase="'desayuno'" style="color:red;">{{s}}</i>
                             <i *ngSwitchDefault>{{s}}</i>
 
-<!--                             {{s}}
- -->                        </span> 
+                      </span> 
                   </li>
               </ul>
-              <a href="#" class="btn-card" (click)="ir()">Quiero ir</a>			
+              <div>
+                   <a href="#" (click)="voteUp()"><i class = "material-icons md-18">thumb_up</i></a>
+                   <a href="#" (click)="voteDown()"><i class = "material-icons md-18">thumb_down</i></a>
+                   {{destino.votes}}
+              </div>
+              <a href="#" class="btn-card" (click)="ir()">Ir</a>			
               <span *ngIf="destino.isSelected()"> 
                    <span ngNonBindable>{{PREFERIDO}}</span>
               </span>

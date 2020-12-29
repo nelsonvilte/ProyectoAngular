@@ -1,5 +1,9 @@
 import { Component, OnInit,Input, HostBinding, EventEmitter, Output } from '@angular/core';
+import { AppState } from '../app.module';
 import { DestinoViaje } from '../models/destino-viaje.model';
+import { VoteUpAction, VoteDownAction } from '../models/destinos-viajes-state.model';
+import { Store } from '@ngrx/store';
+
 
 
 @Component({
@@ -11,18 +15,30 @@ export class DestinoViajeComponent implements OnInit {
 @Input() destino:DestinoViaje;
 @Input('idx') position: number;
 @HostBinding('attr.class') cssClass ='col-md-4';
-@Output() clicked: EventEmitter<DestinoViaje>;
+@Output() onClicked: EventEmitter<DestinoViaje>;
   
-  constructor() {
-    this.clicked=new EventEmitter();
+  constructor(private store: Store<AppState>) {
+    this.onClicked=new EventEmitter();
   }
 
   ngOnInit(): void {
   }
 
   ir(){
-    this.clicked.emit(this.destino);
+    this.onClicked.emit(this.destino);
     return false;
   }
 
+voteUp() {
+  this.store.dispatch(new VoteUpAction(this.destino));
+  return false;
 }
+
+voteDown() {
+  this.store.dispatch(new VoteDownAction(this.destino));
+  return false;
+}
+
+}
+
+
