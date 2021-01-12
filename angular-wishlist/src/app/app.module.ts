@@ -17,8 +17,18 @@ import { LoginComponent } from './components/login/login/login.component';
 import { ProtectedComponent } from './components/protected/protected/protected.component';
 import { AuthService } from './services/auth.service';
 import { UsuarioLogueadoGuard } from './guards/usuario-logueado/usuario-logueado.guard';
+import { VuelosComponentsComponent } from './components/vuelos/vuelos-components/vuelos-components.component';
+import { VuelosMainComponentComponent } from './components/vuelos/vuelos-main-component/vuelos-main-component.component';
+import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
+import { VuelosDetalleComponentComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
 
-
+//rutas anidadas o hijas de Vuelos
+export const childrenRoutesVuelos: Routes = [
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: 'main', component: VuelosMainComponentComponent },
+  { path: 'mas-info', component: VuelosMasInfoComponentComponent },
+  { path: ':id', component: VuelosDetalleComponentComponent },
+];
 
 //routing
 const routes: Routes = [
@@ -31,6 +41,12 @@ const routes: Routes = [
     path: 'protected',
     component: ProtectedComponent,
     canActivate: [ UsuarioLogueadoGuard ]
+  },
+  {
+    path: 'vuelos',
+    component: VuelosComponentsComponent,
+    canActivate: [ UsuarioLogueadoGuard ],
+    children: childrenRoutesVuelos
   }
 ];
 
@@ -55,7 +71,11 @@ let reducersInitialState = {
     DestinoDetalleComponent,
     FormDestinoViajeComponent,
     LoginComponent,
-    ProtectedComponent
+    ProtectedComponent,
+    VuelosComponentsComponent,
+    VuelosMainComponentComponent,
+    VuelosMasInfoComponentComponent,
+    VuelosDetalleComponentComponent
   ],
   imports: [
     BrowserModule,
