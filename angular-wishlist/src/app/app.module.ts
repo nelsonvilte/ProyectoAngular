@@ -21,6 +21,7 @@ import { VuelosComponentsComponent } from './components/vuelos/vuelos-components
 import { VuelosMainComponentComponent } from './components/vuelos/vuelos-main-component/vuelos-main-component.component';
 import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
 import { VuelosDetalleComponentComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
+import { ReservasModule } from './reservas/reservas.module';
 
 //rutas anidadas o hijas de Vuelos
 export const childrenRoutesVuelos: Routes = [
@@ -92,7 +93,8 @@ let reducersInitialState = {
       } 
     }),
     EffectsModule.forRoot([DestinosViajesEffects]),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    ReservasModule
   ],
   providers: [
     DestinosApiClient, AuthService, UsuarioLogueadoGuard
