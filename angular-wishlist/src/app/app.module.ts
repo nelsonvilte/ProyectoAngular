@@ -17,18 +17,18 @@ import { LoginComponent } from './components/login/login/login.component';
 import { ProtectedComponent } from './components/protected/protected/protected.component';
 import { AuthService } from './services/auth.service';
 import { UsuarioLogueadoGuard } from './guards/usuario-logueado/usuario-logueado.guard';
-import { VuelosComponentsComponent } from './components/vuelos/vuelos-components/vuelos-components.component';
-import { VuelosMainComponentComponent } from './components/vuelos/vuelos-main-component/vuelos-main-component.component';
-import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
-import { VuelosDetalleComponentComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
+import { VuelosComponents} from './components/vuelos/vuelos-components/vuelos-components.component';
+import { VuelosMainComponent} from './components/vuelos/vuelos-main-component/vuelos-main-component.component';
+import { VuelosMasInfoComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
+import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
 import { ReservasModule } from './reservas/reservas.module';
 
 //rutas anidadas o hijas de Vuelos
 export const childrenRoutesVuelos: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
-  { path: 'main', component: VuelosMainComponentComponent },
-  { path: 'mas-info', component: VuelosMasInfoComponentComponent },
-  { path: ':id', component: VuelosDetalleComponentComponent },
+  { path: 'main', component: VuelosMainComponent},
+  { path: 'mas-info', component: VuelosMasInfoComponent},
+  { path: ':id', component: VuelosDetalleComponent},
 ];
 
 //routing
@@ -45,11 +45,12 @@ const routes: Routes = [
   },
   {
     path: 'vuelos',
-    component: VuelosComponentsComponent,
+    component: VuelosComponents,
     canActivate: [ UsuarioLogueadoGuard ],
     children: childrenRoutesVuelos
   }
 ];
+// end init routing
 
 //redux init
 export interface AppState{
@@ -62,6 +63,8 @@ const reducers: ActionReducerMap<AppState> = {
 let reducersInitialState = {
   destinos: initializeDestinosViajesState()
 };
+
+
 //redux fin init
 
 @NgModule({
@@ -73,10 +76,10 @@ let reducersInitialState = {
     FormDestinoViajeComponent,
     LoginComponent,
     ProtectedComponent,
-    VuelosComponentsComponent,
-    VuelosMainComponentComponent,
-    VuelosMasInfoComponentComponent,
-    VuelosDetalleComponentComponent
+    VuelosComponents,
+    VuelosMainComponent,
+    VuelosMasInfoComponent,
+    VuelosDetalleComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,7 +100,7 @@ let reducersInitialState = {
     ReservasModule
   ],
   providers: [
-    DestinosApiClient, AuthService, UsuarioLogueadoGuard
+   DestinosApiClient, AuthService, UsuarioLogueadoGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VuelosMasInfoComponentComponent } from './vuelos-mas-info-component.component';
+import { VuelosMasInfoComponent } from './vuelos-mas-info-component.component';
 
 describe('VuelosMasInfoComponentComponent', () => {
-  let component: VuelosMasInfoComponentComponent;
-  let fixture: ComponentFixture<VuelosMasInfoComponentComponent>;
+  let component: VuelosMasInfoComponent;
+  let fixture: ComponentFixture<VuelosMasInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VuelosMasInfoComponentComponent ]
+      declarations: [ VuelosMasInfoComponent]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VuelosMasInfoComponentComponent);
+    fixture = TestBed.createComponent(VuelosMasInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

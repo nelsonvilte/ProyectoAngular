@@ -1,25 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
+import { ReservasApiClientService } from '../reservas-api-client.service';
 
-import { ReservasListadoComponent } from './reservas-listado.component';
+@Component({
+  selector: 'app-reservas-listado',
+  templateUrl: '../reservas-listado.component.html',
+  styleUrls: ['../reservas-listado.component.css']
+})
+export class ReservasListadoComponent implements OnInit {
 
-describe('ReservasListadoComponent', () => {
-  let component: ReservasListadoComponent;
-  let fixture: ComponentFixture<ReservasListadoComponent>;
+  constructor(private api: ReservasApiClientService) { }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ReservasListadoComponent ]
-    })
-    .compileComponents();
-  });
+  ngOnInit() {
+  }
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ReservasListadoComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+}

@@ -4,8 +4,6 @@ import { DestinoViaje } from '../../models/destino-viaje.model';
 import { VoteUpAction, VoteDownAction } from '../../models/destinos-viajes-state.model';
 import { Store } from '@ngrx/store';
 
-
-
 @Component({
   selector: 'app-destino-viaje',
   templateUrl: './destino-viaje.component.html',
