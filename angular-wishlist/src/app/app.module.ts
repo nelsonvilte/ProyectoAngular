@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, Injectable, InjectionToken, NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {StoreModule as NgRxStoreModule, ActionReducerMap} from '@ngrx/store';
+import {StoreModule as NgRxStoreModule, ActionReducerMap, Store} from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import {StoreDevtoolsModule}from '@ngrx/store-devtools'
+import {StoreDevtoolsModule}from '@ngrx/store-devtools';
+import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { DestinoViajeComponent } from './components/destino-viaje/destino-viaje.component';
@@ -12,7 +13,7 @@ import { ListaDestinosComponent } from './components/lista-destinos/lista-destin
 import { DestinoDetalleComponent } from './components/destino-detalle/destino-detalle.component';
 import { FormDestinoViajeComponent } from './components/form-destino-viaje/form-destino-viaje.component';
 import { DestinosApiClient } from './models/destinos-api-client.model';
-import { DestinosViajesState, reducerDestinosViajes, initializeDestinosViajesState, DestinosViajesEffects } from './models/destinos-viajes-state.model';
+import { DestinosViajesState, reducerDestinosViajes, initializeDestinosViajesState, DestinosViajesEffects, InitMyDataAction } from './models/destinos-viajes-state.model';
 import { LoginComponent } from './components/login/login/login.component';
 import { ProtectedComponent } from './components/protected/protected/protected.component';
 import { AuthService } from './services/auth.service';
@@ -22,6 +23,19 @@ import { VuelosMainComponent} from './components/vuelos/vuelos-main-component/vu
 import { VuelosMasInfoComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
 import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
 import { ReservasModule } from './reservas/reservas.module';
+
+
+// app config
+export interface AppConfig {
+  apiEndpoint: String;
+}
+const APP_CONFIG_VALUE: AppConfig = {
+  apiEndpoint: 'http://localhost:3000'
+};
+export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+// fin app config
+
+
 
 //rutas anidadas o hijas de Vuelos
 export const childrenRoutesVuelos: Routes = [
@@ -60,12 +74,27 @@ const reducers: ActionReducerMap<AppState> = {
   destinos: reducerDestinosViajes
 };
 
-let reducersInitialState = {
+const reducersInitialState = {
   destinos: initializeDestinosViajesState()
 };
-
-
 //redux fin init
+
+// app init
+export function init_app(appLoadService: AppLoadService): () => Promise<any>  {
+  return () => appLoadService.intializeDestinosViajesState();
+}
+
+@Injectable()
+class AppLoadService {
+  constructor(private store: Store<AppState>, private http: HttpClient) { }
+  async intializeDestinosViajesState(): Promise<any> {
+    const headers: HttpHeaders = new HttpHeaders({'X-API-TOKEN': 'token-seguridad'});
+    const req = new HttpRequest('GET', APP_CONFIG_VALUE.apiEndpoint + '/my', { headers: headers });
+    const response: any = await this.http.request(req).toPromise();
+    this.store.dispatch(new InitMyDataAction(response.body));
+  }
+}
+// fin app init
 
 @NgModule({
   declarations: [
@@ -85,22 +114,18 @@ let reducersInitialState = {
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot(routes),
-    NgRxStoreModule.forRoot(reducers,{initialState: reducersInitialState,
-      runtimeChecks:{ 
-
-        strictStateImmutability: false, 
-  
-        strictActionImmutability: false, 
-  
-      } 
-    }),
+    NgRxStoreModule.forRoot(reducers,{initialState: reducersInitialState}),
     EffectsModule.forRoot([DestinosViajesEffects]),
     StoreDevtoolsModule.instrument(),
     ReservasModule
   ],
   providers: [
-   DestinosApiClient, AuthService, UsuarioLogueadoGuard
+   AuthService, UsuarioLogueadoGuard,
+   { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE },
+   AppLoadService,
+   { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }
   ],
   bootstrap: [AppComponent]
 })
