@@ -1,5 +1,6 @@
-import { forwardRef, Inject, Injectable } from '@angular/core';
 import { DestinoViaje } from './destino-viaje.model';
+
+import { forwardRef, Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NuevoDestinoAction, ElegidoFavoritoAction } from './destinos-viajes-state.model';
 import { AppConfig, AppState, APP_CONFIG, MyDatabase, db } from './../app.module';

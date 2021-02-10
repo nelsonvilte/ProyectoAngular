@@ -1,14 +1,36 @@
 import { Component, OnInit,Input, HostBinding, EventEmitter, Output } from '@angular/core';
 import { AppState } from '../../app.module';
-import { DestinoViaje } from '../../models/destino-viaje.model';
+import { DestinoViaje } from './../../models/destino-viaje.model';
 import { VoteUpAction, VoteDownAction } from '../../models/destinos-viajes-state.model';
 import { Store } from '@ngrx/store';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @Component({
   selector: 'app-destino-viaje',
   templateUrl: './destino-viaje.component.html',
-  styleUrls: ['./destino-viaje.component.css']
+  styleUrls: ['./destino-viaje.component.css'],
+
+  animations: [
+    trigger('esFavorito', [
+      state('estadoFavorito', style({
+        backgroundColor: 'PaleTurquoise'
+      })),
+      state('estadoNoFavorito', style({
+        backgroundColor: 'WhiteSmoke'
+      })),
+      transition('estadoNoFavorito => estadoFavorito', [
+        animate('3s')
+      ]),
+      transition('estadoFavorito => estadoNoFavorito', [
+        animate('1s')
+      ]),
+    ])
+  ]
+  
 })
+
 export class DestinoViajeComponent implements OnInit {
 @Input() destino:DestinoViaje;
 @Input('idx') position: number;
@@ -19,7 +41,7 @@ export class DestinoViajeComponent implements OnInit {
     this.onClicked=new EventEmitter();
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
   }
 
   ir(){

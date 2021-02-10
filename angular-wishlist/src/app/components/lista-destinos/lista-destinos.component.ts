@@ -14,6 +14,7 @@ import { AppState } from './../../app.module';
 export class ListaDestinosComponent implements OnInit {
   @Output()  onItemAdded: EventEmitter<DestinoViaje>;
   updates:string[];
+ 
   
 //inicializacion
     constructor(
@@ -42,5 +43,7 @@ export class ListaDestinosComponent implements OnInit {
     elegido(d:DestinoViaje){
       this.destinosApiClient.elegir(d);
     }
+
+  
 
 }
