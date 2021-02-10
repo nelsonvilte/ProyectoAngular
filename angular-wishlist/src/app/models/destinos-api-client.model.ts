@@ -40,7 +40,7 @@ export class DestinosApiClient {
 			const myDb = db;
 			myDb.destinos.add(d);
 			console.log('todos los destinos de la db!');
-			myDb.destinos.toArray().then(destinos => console.log(destinos))
+			myDb.destinos.toArray().then(destinos => console.log(destinos))//api de consultas de dexie
 
 		   }
 		});
