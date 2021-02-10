@@ -10,8 +10,6 @@ import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest, HttpResponse }f
 @Injectable()
 export class DestinosApiClient {
 	destinos: DestinoViaje[] = [];
-
-
 	constructor( 
 		private store: Store<AppState>,
 		@Inject(forwardRef(() => APP_CONFIG)) private config: AppConfig,
