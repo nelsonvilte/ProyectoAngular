@@ -28,7 +28,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       ]),
     ])
   ]
-  
 })
 
 export class DestinoViajeComponent implements OnInit {

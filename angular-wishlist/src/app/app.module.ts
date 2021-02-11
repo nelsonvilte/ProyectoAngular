@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StoreModule as NgRxStoreModule, ActionReducerMap, Store} from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import {StoreDevtoolsModule}from '@ngrx/store-devtools';
-import Dexie from 'dexie';
+import { Dexie } from 'dexie';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
@@ -199,7 +199,7 @@ function HttpLoaderFactory(http: HttpClient) {
     runtimeChecks: {
       strictStateImmutability: false,
       strictActionImmutability: false,
-    }  
+    },  
     
     }),
     
@@ -213,7 +213,8 @@ function HttpLoaderFactory(http: HttpClient) {
           deps: [HttpClient]
       }
     }),
-    NgxMapboxGLModule  
+    NgxMapboxGLModule
+
   ],
   providers: [
    AuthService, UsuarioLogueadoGuard,

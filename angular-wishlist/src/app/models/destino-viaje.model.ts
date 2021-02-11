@@ -16,9 +16,9 @@ export class DestinoViaje {
       this.selected = s;
   }
 
-  isSelected():boolean{
+  isSelected(){
     return this.selected;
-}
+  }
 
   voteUp(): any {
       this.votes++;
@@ -26,5 +26,5 @@ export class DestinoViaje {
 
   voteDown(): any {
     this.votes--;
-}
+  }
 }
