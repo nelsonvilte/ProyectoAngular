@@ -33,6 +33,7 @@ import { DestinoViaje } from './models/destino-viaje.model';
 import { _runtimeChecksFactory } from '@ngrx/store/src/runtime_checks';
 import { from, Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
+import { EspiameDirective } from './espiame.directive';
 
 
 // app config
@@ -187,6 +188,7 @@ function HttpLoaderFactory(http: HttpClient) {
     VuelosMainComponent,
     VuelosMasInfoComponent,
     VuelosDetalleComponent,
+    EspiameDirective,
   ],
   imports: [
     BrowserModule,
