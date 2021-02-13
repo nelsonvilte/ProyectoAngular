@@ -34,6 +34,7 @@ import { _runtimeChecksFactory } from '@ngrx/store/src/runtime_checks';
 import { from, Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 import { EspiameDirective } from './espiame.directive';
+import { TrackearClickDirective } from './trackear-click.directive';
 
 
 // app config
@@ -189,6 +190,7 @@ function HttpLoaderFactory(http: HttpClient) {
     VuelosMasInfoComponent,
     VuelosDetalleComponent,
     EspiameDirective,
+    TrackearClickDirective,
   ],
   imports: [
     BrowserModule,
