@@ -17,7 +17,7 @@ import { ListaDestinosComponent } from './components/lista-destinos/lista-destin
 import { DestinoDetalleComponent } from './components/destino-detalle/destino-detalle.component';
 import { FormDestinoViajeComponent } from './components/form-destino-viaje/form-destino-viaje.component';
 import { DestinosApiClient } from './models/destinos-api-client.model';
-import { DestinosViajesState, reducerDestinosViajes, initializeDestinosViajesState, DestinosViajesEffects, InitMyDataAction } from './models/destinos-viajes-state.model';
+import { DestinosViajesState, reducerDestinosViajes, intializeDestinosViajesState, DestinosViajesEffects, InitMyDataAction } from './models/destinos-viajes-state.model';
 import { LoginComponent } from './components/login/login/login.component';
 import { ProtectedComponent } from './components/protected/protected/protected.component';
 import { AuthService } from './services/auth.service';
@@ -87,7 +87,7 @@ const reducers: ActionReducerMap<AppState> = {
 };
 
 const reducersInitialState = {
-  destinos: initializeDestinosViajesState()
+  destinos: intializeDestinosViajesState()
 };
 //redux fin init
 

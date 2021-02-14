@@ -16,7 +16,7 @@ export interface DestinosViajesState{
     favorito: DestinoViaje;
 }
 
-export function initializeDestinosViajesState(){
+export function intializeDestinosViajesState(){
     return {
 	    items: [],
 	    loading: false,
