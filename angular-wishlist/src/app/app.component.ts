@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-wishlist';
+  title = 'angular-whishlist';
   time = new Observable(observer => {
     setInterval(()=>observer.next(new Date().toString()),1000);
     return null;
