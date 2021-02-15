@@ -48,8 +48,10 @@ module.exports = function (config) {
     restartOnFileChange: true,
 
     //***
-    browserNoActivityTimeout: 60000,
-    browserDisconnectTimeout: 60000
+    captureTimeout: 210000,
+    browserDisconnectTolerance: 3,
+    browserDisconnectTimeout : 210000,
+    browserNoActivityTimeout : 210000
     //***
   });
 };
