@@ -37,13 +37,17 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    browsers: ['Chrome', 'ChromeHeadless', 'ChromeHeadlessCI'],
+    browsers: ['Chrome'],
     customLaunchers: {
-      ChromeHeadlessCI: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--disable-gpu', '--disable-translate', '--disable-extensions', '--remote-debugging-port=9223']
+      ChromeNoSandbox: {
+          base: 'Chrome',
+          flags: ['--no-sandbox']
+      },
+      ChromeNoSandboxHeadless: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox']
       }
-    },/*,
+  },/*,
     singleRun: false
     restartOnFileChange: true,*/
 
